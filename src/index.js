@@ -7,6 +7,8 @@ import IMG2 from './images/2.jpg'
 import IMG3 from './images/3.jpg'
 import IMG4 from './images/4.jpg'
 import IMG5 from './images/5.jpg'
+import IMG6 from './images/6.jpg'
+import IMGSTART from './images/start-img.jpg'
 
 
 function MyImage(props){
@@ -21,11 +23,13 @@ class Page extends React.Component {
         super(props);
         this.state = {
             // images: null
-            images: [IMG1, IMG2, IMG3, IMG4, IMG5],
-            fullscreen: false,
+            images: [IMG1, IMG2, IMG3, IMG4, IMG5, IMG6],
             activeClasses: {
-                images: 'grid-img'
-            },
+                images: 'grid-img',
+                xButton: 'hidden',
+                lArrow: 'hidden',
+                rArrow: 'hidden'
+            }
         };
         this.openModal =  this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
@@ -54,16 +58,31 @@ class Page extends React.Component {
 
     openModal(evt) { // open modal
         console.log(evt.target);
-        this.setState()
+        this.setState({activeClasses: {
+            images: 'modal-thumbnail',
+            xButton: 'modal-x',
+            lArrow: 'prev-modal',
+            rArrow: 'next-modal'
+        }});
     }
 
     closeModal() { // close modal
         console.log('modal closed');
+        this.setState({activeClasses: {
+            images: 'grid-img',
+            xButton: 'hidden',
+            lArrow: 'hidden',
+            rArrow: 'hidden'
+        }});
     }
 
     render() {
         return (
-            <Gallery images={this.state.images} activeClasses={this.state.activeClasses} imageClick={this.openModal} xClick={this.closeModal}/>
+            <>
+                <img class="gallery-start-img" src={IMGSTART}/>
+                <p id="zoom-message" style={{float: 'right', fontStyle: 'italic'}}>Click on an image to zoom.</p>
+                <Gallery images={this.state.images} activeClasses={this.state.activeClasses} imageClick={this.openModal} xClick={this.closeModal}/>
+            </>
         );
     }
 }
@@ -94,9 +113,14 @@ class Gallery extends Page {
         }
 
         return (
-            <div className='grid'>
-                {images}
-            </div>
+            <>
+                <div className='grid'>
+                    {images}
+                </div>
+                <div className={this.props.activeClasses.xButton} onClick={this.props.xClick}><p>&#9587;</p></div>
+                <a className={this.props.activeClasses.lArrow}>&#8249;</a>
+                <a className={this.props.activeClasses.rArrow}>&#8250;</a>
+            </>
         );
     }
 }
