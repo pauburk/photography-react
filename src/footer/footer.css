@@ -1,0 +1,32 @@
+.footer {
+    padding-top: 10%;
+    padding-bottom: 6%;
+}
+
+.footer p {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+
+.footer a {
+    text-decoration-thickness: 2px;
+}
+
+.cr-normal {
+    margin-top: 0;
+    float: right;
+}
+
+.cr-bottom {
+    display: none;
+}
+
+@media screen and (max-width: 700px) {
+    .cr-normal {
+        display: none;
+    }
+    .cr-bottom {
+        display: block;
+        margin-top: 0;
+    }
+}
